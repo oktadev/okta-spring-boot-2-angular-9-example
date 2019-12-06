@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
+import org.springframework.security.web.util.matcher.RequestMatcher
 
 @Configuration
 class SecurityConfiguration : WebSecurityConfigurerAdapter() {
@@ -16,7 +17,10 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .and()
             .oauth2ResourceServer().jwt()
 
-        http.requiresChannel().anyRequest().requiresSecure(); // <1>
+        http.requiresChannel()
+            .requestMatchers(RequestMatcher {
+                r -> r.getHeader("X-Forwarded-Proto") != null
+            }).requiresSecure() // <1>
 
         http.csrf()
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()); // <2>
