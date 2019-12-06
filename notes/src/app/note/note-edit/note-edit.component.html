@@ -1,0 +1,32 @@
+<ol class="breadcrumb float-right">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">Notes</li>
+</ol>
+<div class="card">
+  <div class="header">
+    <h2 class="title">Notes Detail</h2>
+  </div>
+  <div class="content">
+    <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+    <form *ngIf="note" #editForm="ngForm" (ngSubmit)="save()">
+    
+      <div class="form-group">
+        <label>Id</label>
+        {{note.id || 'n/a'}} 
+      </div>
+    
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input [(ngModel)]="note.title" id="title" name="title" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="text">Text</label>
+        <input [(ngModel)]="note.text" id="text" name="text" class="form-control">
+      </div>
+    
+      <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </form>
+  </div>
+</div>

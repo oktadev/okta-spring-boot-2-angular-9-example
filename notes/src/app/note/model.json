@@ -1,0 +1,29 @@
+{
+  "title": "Notes",
+  "entity": "note",
+  "api": {
+    "url": "http://localhost:8080/api/notes"
+  },
+  "filter": [
+    "title"
+  ],
+  "fields": [
+    {
+      "name": "id",
+      "label": "Id",
+      "isId": true,
+      "readonly": true,
+      "type": "number"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "label": "Title"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "label": "Text"
+    }
+  ]
+}
