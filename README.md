@@ -5,8 +5,8 @@ This example app shows how to build a basic CRUD app with Spring Boot 2.2, Kotli
 Please read [Build a CRUD App with Angular 9 and Spring Boot](https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2) to see how this app was created.
 
 **Prerequisites:** 
-* [Node 12]+(https://nodejs.org/)
-* [Java 11]+(https://adoptopenjdk.net/)
+* [Node 12](https://nodejs.org/)+
+* [Java 11](https://adoptopenjdk.net/)+
 * An [Okta Developer Account](https://developer.okta.com/signup/)
 
 > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage and secure users and roles in any application.
@@ -27,7 +27,7 @@ cd okta-spring-boot-2-angular-9-example
 
 This will get a copy of the project installed locally. To install all of its dependencies and start each app, follow the instructions below.
 
-#### Spring Boot Configuration
+### Spring Boot Configuration
 
 To create a new OIDC app for Spring Boot on Okta:
 
@@ -54,7 +54,7 @@ source okta.env
 ./gradlew bootRun
 ```
 
-#### Angular Configuration
+### Angular Configuration
 
 To create a new OIDC app for Angular on Okta:
 
@@ -66,14 +66,14 @@ Copy the `issuer` and `clientId` into `notes/src/app/auth-routing.module.ts`.
 
 ```typescript
 const oktaConfig = {
-  issuer: 'https://dev-133320.okta.com/oauth2/default',
+  issuer: 'https://{yourOktaDomain}/oauth2/default',
   redirectUri: window.location.origin + '/implicit/callback',
-  clientId: '0oa2e3bzk28pmBvvo357',
+  clientId: '{yourClientId}',
   pkce: true
 };
 ```
 
-Navigate into the `client` folder and run:
+Navigate into the `notes` folder and run:
  
 ```bash
 npm install && npm start
