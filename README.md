@@ -1,4 +1,4 @@
-# A CRUD Example App with Angular 8.0 and Spring Boot 2.2
+# A CRUD Example App with Angular 9.0 and Spring Boot 2.2
  
 This example app shows how to build a basic CRUD app with Spring Boot 2.2, Kotlin, Spring Data, and Angular 9.0.
 
