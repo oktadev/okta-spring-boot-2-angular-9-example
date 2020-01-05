@@ -10,7 +10,7 @@ import { AuthInterceptor } from './shared/okta/auth.interceptor';
 const oktaConfig = {
   issuer: 'https://dev-133320.okta.com/oauth2/default',
   redirectUri: window.location.origin + '/implicit/callback',
-  clientId: '0oa1vz84gesrFte9q357',
+  clientId: '0oa2e3bzk28pmBvvo357',
   pkce: true
 };
 
