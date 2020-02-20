@@ -1,3 +1,8 @@
+:experimental:
+// Define unicode for Apple Command key.
+:commandkey: &#8984;
+:toc: macro
+
 == Angular 9 + Spring Boot 2.2 Demo Steps
 
 Angular is a web framework for building mobile and desktop applications. Angular 9 was recently released, giving Angular quite a successful run in the land of web frameworks.
