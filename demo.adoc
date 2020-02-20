@@ -1,0 +1,195 @@
+:experimental:
+// Define unicode for Apple Command key.
+:commandkey: &#8984;
+:toc: macro
+
+== Angular 9 + Spring Boot 2.2 Demo Steps
+
+Angular is a web framework for building mobile and desktop applications. Angular 9 was recently released, giving Angular quite a successful run in the land of web frameworks.
+
+Spring Boot is one of the most popular frameworks for developing Java applications and REST APIs. It also has first-class support for Kotlin!
+
+Long story short, they’re a match made in heaven!
+
+This is a demo script with the bare-bones steps you need to https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2[build a secure CRUD app with Angular 9 and Spring Boot 2.2].
+
+TIP: The brackets at the end of some steps indicate the IntelliJ Live Templates to use. You can find the template definitions at https://github.com/mraible/idea-live-templates[mraible/idea-live-templates].
+
+toc::[]
+
+=== Create an Angular 9 App
+
+. Install prerequisites: Node 12+, Java 11+, and an Okta developer account
+
+. Install Angular CLI
+
+  npm i -g @angular/cli@9.0.3
+
+. Create a directory called `angular-spring-boot` and `cd` into it
+
+. Run `ng new notes --routing --style css`; show app with `ng serve -o`
+
+=== Secure Angular with Okta
+
+. Register a SPA app on Okta, noting Trusted Origins
+
+. Add Okta's Angular SDK using OktaDev Schematics
+
+  ng add @oktadev/schematics
+
+. Show changes made to project and explain (auth-routing, home, interceptor)
+
+. Start app with `ng serve`, open a private window to `http://localhost:4200`, and log in
+
+=== Create a Spring Boot 2.2. API
+
+. start.spring.io: Kotlin, Java 11, H2, JPA, Rest Repositories, Okta, and Web [`boot-kickoff`]
+
+  http https://start.spring.io/starter.zip javaVersion==11 language==kotlin \
+  artifactId==notes-api groupId==com.okta.developer packageName==com.okta.developer.notes \
+  type==gradle-project dependencies==h2,data-jpa,data-rest,okta,web -d
+
+. Unzip downloaded file to `angular-spring-boot/notes-api`
+
+  unzip notes-api.zip -d notes-api
+
+=== Secure Spring Boot with Okta
+
+. Register a Web app on Okta, use `http://localhost:8080/login/oauth2/code/okta` for the login redirect
+
+. Show Okta Maven Plugin
+
+. Create an `okta.env` file and ignore `*.env` files in `.gitignore`
+
+  export OKTA_OAUTH2_ISSUER=https://$OKTA_DOMAIN/oauth2/default
+  export OKTA_OAUTH2_CLIENT_ID=$CLIENT_ID
+  export OKTA_OAUTH2_CLIENT_SECRET=$CLIENT_SECRET
+
+. Start app using `source okta.env` followed by `./gradlew bootRun`
+
+. Open `http://localhost:8080` and show login
+
+. Configure Spring Boot as an OAuth 2.0 Resource Server [`ss-resource-kotlin`]
+
+=== Add a REST API with Spring Data REST
+
+. Add `Note`, `NoteRepository`, and a `RepositoryEventHandler` [`krud-entity`, `krud-repo`, `krud-event`]
+
+. Add a `DataInitializer.kt` to create default data [`krud-data`]
+
+. Create a `UserController.kt` to filter notes by the current user [`krud-user`]
+
+. Add a `findAllByUser()` method to `NotesRepository`
+
+  fun findAllByUser(name: String): List<Note>
+
+. Set the base path for Spring Data REST endpoints in `application.properties`
+
+  spring.data.rest.base-path=/api
+
+. Restart and navigate to `http://localhost:8080/user` to see account details
+
+. Open `http://localhost:8080/api/notes` to see the default notes
+
+. Add a CORS Filter for Angular and restart [`kors-filter`]
+
+=== Add a Notes CRUD Feature in Angular
+
+. Schematics are awesome! There's even an Angular CRUD schematic. Install it:
+
+  npm i -D angular-crud@1.0.0
+
+. Create a `src/app/note` directory
+
+  mkdir -p src/app/note
+
+. Create a `model.json` file in this directory
+
+  {
+    "title": "Notes",
+    "entity": "note",
+    "api": {
+      "url": "http://localhost:8080/api/notes"
+    },
+    "filter": [
+      "title"
+    ],
+    "fields": [
+      {
+        "name": "id",
+        "label": "Id",
+        "isId": true,
+        "readonly": true,
+        "type": "number"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "label": "Title"
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "label": "Text"
+      }
+    ]
+  }
+
+. Run the command below to generate CRUD screens
+
+  ng g angular-crud:crud-module note
+
+. Look at generated `notes.module.ts` and `nodes.routes.ts`
+
+. Add a link to `NoteListComponent` in `home.component.html`
+
+  <p><a routerLink="/notes" *ngIf="isAuthenticated">View Notes</a></p>
+
+. Change `app.component.html` to be super simple
+
+  <h1>{{ title }} app is running!</h1>
+  <router-outlet></router-outlet>
+
+. Run `ng serve`, log in, and click on **View Notes**
+
+. Create a new Note, look at Spring Boot console
+
+. No notes in list; adjust `NoteService` to call `/user/notes`
+
+  find(filter: NoteFilter): Observable<Note[]> {
+    const params = {
+      title: filter.title,
+    };
+    const userNotes = 'http://localhost:8080/user/notes';
+    return this.http.get<Note[]>(userNotes, {params, headers});
+  }
+
+. Explain `NoteListComponent`, show `delete()` method, mention `AuthInterceptor`
+
+. Show Edit link in `note-list-component.html` and code in `note-edit.component.ts`
+
+. Fix the Note Edit Feature by adding a `RestConfiguration` class [`krud-rest`]
+
+. Show how you could https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2#fix-the-note-edit-feature[also do this in Angular]
+
+=== Lock Down Spring Boot
+
+In https://developer.okta.com/blog/2018/07/30/10-ways-to-secure-spring-boot[10 Excellent Ways to Secure Your Spring Boot Application], I recommended a few Spring Boot-specific items:
+
+* Use HTTPS in Production
+* Enable Cross-Site Request Forgery (CSRF) Protection
+* Use a Content Security Policy (CSP) to Prevent XSS Attacks
+* Use OpenID Connect for Authentication
+
+You've done #4, but what about the others?
+
+. Modify your `SecurityConfiguration` class to add HTTPS, CSRF protection, and a CSP `[ss-resource-kotlin-https`]
+
+. Mention how Angular’s `HttpClient` has built-in support for the client-side half of the CSRF protection. It’ll read the cookie sent by Spring Boot and return it in an `X-XSRF-TOKEN` header. Read more in https://angular.io/guide/security[Angular Security docs].
+
+. Show final app and rejoice 🎉
+
+== Learn More!
+
+. Blog post: https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2
+. GitHub repo: https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example
