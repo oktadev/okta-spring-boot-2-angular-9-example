@@ -152,7 +152,7 @@ toc::[]
 
 . Run `ng serve`, log in, and click on **View Notes**
 
-. Create a new Note, look at log in Spring Boot console
+. Create a new Note, look at Spring Boot console
 
 . No notes in list; adjust `NoteService` to call `/user/notes`
 
@@ -174,7 +174,7 @@ toc::[]
 
 === Lock Down Spring Boot
 
-In [10 Excellent Ways to Secure Your Spring Boot Application](https://developer.okta.com/blog/2018/07/30/10-ways-to-secure-spring-boot), I recommended a few Spring Boot-specific items:
+In https://developer.okta.com/blog/2018/07/30/10-ways-to-secure-spring-boot[10 Excellent Ways to Secure Your Spring Boot Application], I recommended a few Spring Boot-specific items:
 
 * Use HTTPS in Production
 * Enable Cross-Site Request Forgery (CSRF) Protection
