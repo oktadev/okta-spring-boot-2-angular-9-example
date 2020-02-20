@@ -51,7 +51,7 @@ toc::[]
 
 . Unzip downloaded file to `angular-spring-boot/notes-api`
 
-  unzip notes-api.zip -d angular-spring-boot/notes-api
+  unzip notes-api.zip -d notes-api
 
 === Secure Spring Boot with Okta
 
