@@ -60,14 +60,14 @@ To create a new OIDC app for Angular on Okta:
 
 1. Log in to your developer account, navigate to **Applications**, and click on **Add Application**.
 3. Select **Single-Page App** and click **Next**. 
-4. Give the application a name, set the login redirect URI to `http://localhost:4200/implicit/callback`, and click **Done**.
+4. Give the application a name, set the login redirect URI to `http://localhost:4200/callback`, and click **Done**.
 
 Copy the `issuer` and `clientId` into `notes/src/app/auth-routing.module.ts`.
 
 ```typescript
 const oktaConfig = {
   issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirectUri: window.location.origin + '/implicit/callback',
+  redirectUri: window.location.origin + '/callback',
   clientId: '{yourClientId}',
   pkce: true
 };
