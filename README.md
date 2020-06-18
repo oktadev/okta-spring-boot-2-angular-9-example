@@ -2,8 +2,9 @@
  
 This example app shows how to build a basic CRUD app with Spring Boot 2.2, Kotlin, Spring Data, and Angular 9.0. Please read [Build a CRUD App with Angular 9 and Spring Boot](https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2) to see how this app was created. This blog post is part of a series. Other blog posts in this series include:
 
-* [Build Beautiful Angular Apps with Bootstrap](https://developer.okta.com/blog/2020/03/02/angular-bootstrap)
-* [Angular Deployment with a Side of Spring Boot](https://developer.okta.com/blog/2020/05/29/angular-deployment)
+- [Build Beautiful Angular Apps with Bootstrap](https://developer.okta.com/blog/2020/03/02/angular-bootstrap)
+- [Angular Deployment with a Side of Spring Boot](https://developer.okta.com/blog/2020/05/29/angular-deployment)
+- [Angular + Docker with a Big Hug from Spring Boot](https://developer.okta.com/blog/2020/06/17/angular-docker-spring-boot)
 
 **Prerequisites:** 
 * [Node 12](https://nodejs.org/)+
