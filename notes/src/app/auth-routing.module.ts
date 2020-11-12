@@ -9,9 +9,9 @@ import { AuthInterceptor } from './shared/okta/auth.interceptor';
 
 const oktaConfig = {
   issuer: 'https://dev-133320.okta.com/oauth2/default',
-  redirectUri: window.location.origin + '/callback',
+  redirectUri: '/callback',
   clientId: '0oa6a3af75tcbuvxS357',
-  pkce: true
+  scopes: ['openid', 'profile']
 };
 
 const routes: Routes = [
