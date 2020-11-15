@@ -19,8 +19,8 @@
     "@angular/platform-browser": "~11.0.0",
     "@angular/platform-browser-dynamic": "~11.0.0",
     "@angular/router": "~11.0.0",
-    "@okta/okta-angular": "1.4.0",
-    "@oktadev/schematics": "^1.2.1",
+    "@okta/okta-angular": "3.0.1",
+    "@oktadev/schematics": "^3.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

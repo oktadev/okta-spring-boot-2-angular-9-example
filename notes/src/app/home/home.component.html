@@ -1,5 +1,5 @@
 <div>
-  <button *ngIf="!isAuthenticated" (click)="oktaAuth.loginRedirect()">Login</button>
+  <button *ngIf="!isAuthenticated" (click)="oktaAuth.signInWithRedirect()">Login</button>
   <p><a routerLink="/notes" *ngIf="isAuthenticated">View Notes</a></p>
-  <button *ngIf="isAuthenticated" (click)="oktaAuth.logout()">Logout</button>
+  <button *ngIf="isAuthenticated" (click)="oktaAuth.signOut()">Logout</button>
 </div>
